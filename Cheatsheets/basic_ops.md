@@ -48,7 +48,9 @@ NUM1 .word 123,456 ; using .word to declare a constant
 Rn (base register) contains the address to the memory location
 ### Load
 ```
-LDR Rt, [Rn, #offset] ; load register Rt with value from stated memory
+LDR Rt, [Rn, #offset] ; load register Rt with contents from stated memory
+eg. LDR R1, NUM1 ; will load contents of NUM1 to R1
+eg. LDR R1, [R3] ; will load contents of R3 to R1
 ```
 
 Load can also be performed on PC relative addressing. eg. `LDR Rd, ITEM`
@@ -56,6 +58,7 @@ Load can also be performed on PC relative addressing. eg. `LDR Rd, ITEM`
 #### Load pseudo instruction
 ```
 LDR R2, =NUM1 ; will load R2 with the address to NUM1
+eg. LDR R2, =NUM1 ; will load the address (not content) of NUM1 to R2
 ```
 
 ### Store
@@ -67,8 +70,15 @@ STR Rt, [Rn, #offset] ; stores value from register Rt to stated memory
 ## Move operation
 
 ```
-MOV Rd, Op2 ; move Rd to Op2
+MOV Rd, Op2 ; move Rd to Op2, Op2 is bounded by #256
 MOVW Rd, Op2 ; Op2 is restricted to 16 bit constants #imm16
+```
+
+`MOV` will automatically expand to `MOVW` if need be when we specify an operand that is larger.
+
+### Alternative: move a label address to register
+```
+MOVW R1, #NUM1 ; will move address of NUM1 to R1, not contents
 ```
 
 ## Arithmetic operations
