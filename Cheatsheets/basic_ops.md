@@ -70,7 +70,7 @@ STR Rt, [Rn, #offset] ; stores value from register Rt to stated memory
 ## Move operation
 
 ```
-MOV Rd, Op2 ; move Rd to Op2, Op2 is bounded by #256
+MOV Rd, Op2 ; move Op2, Op2 is bounded by #256 to Rd
 MOVW Rd, Op2 ; Op2 is restricted to 16 bit constants #imm16
 ```
 
@@ -94,6 +94,13 @@ SUB {Rd,} Rn, Op2
 ### Multiplication
 ```
 MUL {Rd,} Rn, Rm ; Multiplies Rn and Rm and stores at Rd. If Rd is omitted, then it will store at Rn
-MULA Rd, Rn, Rm, Ra ; Multiply with accumulate
+MLA Rd, Rn, Rm, Ra ; Multiply with accumulate
 ; To get 64 bit results, multiply with suffix L eg. UMULL
+```
+
+### Division
+
+```
+SDIV {Rd,} Rn, Rm ; Signed division
+UDIV {Rd,} Rn, Rm ; Unsigned division
 ```
